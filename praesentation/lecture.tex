@@ -1,0 +1,88 @@
+\usepackage{../template/beamerthemeuulm} % use the inofficial uulm beamer theme
+\usepackage[ngerman]{babel} % use this line for slides in German
+%\usepackage{minted} % for displaying source code
+
+\usepackage{tabularx}
+
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+\graphicspath{{./pics/}{../template/pics/}{../template/pics/logos/}{../template/pics/uulm/}{../template/pics/nature/}} % set the path for images and logos
+
+% Colors:
+%\definecolor{sfzgreen}{HTML}{79bf38}
+%\definecolor{sfzpurple}{HTML}{5c64b8}
+%\definecolor{sfzgray}{HTML}{acacaa}
+
+%\definecolor{red}{HTML}{A32638} % sfz-red
+%\definecolor{orange}{HTML}{79bf38} % sfz-green
+%\definecolor{blue}{HTML}{5c64b8} % sfz-purple
+
+%\setbeamercolor{myfooter}{fg=white,bg=sfzgray}
+%\setbeamercolor{subtitlebox}{fg=white,bg=sfzgray}
+%\setbeamercolor{mypagenumber}{fg=white,bg=sfzgreen}
+%\setbeamercolor{titlebox}{fg=white,bg=sfzgreen}
+
+% Logo:
+%\universitylogo{sfz}
+
+% Title:
+\title{Lesbarkeitsanalyse -- YouTube-Videos im Vergleich} % short title is used for the slide footer but optional
+\author{Matthias Ruf} % short author title is used for the slide footer but optional
+
+% Section overviews: (hack to fit on screen)
+\ifsectiontitleslide
+\AtBeginSection{
+    \ifsectionoverview
+    \begin{frame}{\thesection.~\insertsection}
+        \begin{multicols}{2}
+            \tableofcontents[currentsection,hideothersubsections]
+        \end{multicols}
+    \end{frame}
+    \else
+    \begin{frame}
+        \usebeamerfont{section title}\textbf{\thesection.~\insertsection}
+    \end{frame}
+    \fi
+}
+\fi
+
+% Code Examples:
+\newcommand{\commandoverview}[3]{
+    \begin{mycolumns}[widths={60,40}]%[keep]
+        \begin{definition}{\texttt{#1}}
+            #2
+        \end{definition}
+        \onslide<2->{
+        \begin{example}{}
+            \inputminted[linenos,breaklines]{latex}{code/#3.tex}
+        \end{example}
+        }
+    \mynextcolumn
+    \vspace{-10mm}
+        \onslide<3->{
+        \begin{notetight}{}
+            \centering
+            \includegraphics[width=\linewidth]{code/#3.pdf}
+        \end{notetight}
+        }
+    \end{mycolumns}
+}
